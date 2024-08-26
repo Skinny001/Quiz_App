@@ -849,18 +849,18 @@ const questions = [
 const questionElement = document.getElementById("question");
 const answerButton = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
-// const timerElement = document.getElementById("timer");
+const timerElement = document.getElementById("timer");
 const startButton = document.getElementById("start-btn");
 
 let currentQuestionIndex = 0;
 let score = 0;
-let timeLeft = 60;
+let timeLeft = 30;
 let intervalId;
 
 function startQuiz(){
     currentQuestionIndex = 0;
     score = 0;
-    timeLeft = 60;
+    timeLeft = 30;
     nextButton.innerHTML = "Next";
     showQuestion();
     startTimer();
@@ -935,8 +935,10 @@ function startTimer(){
     intervalId = setInterval(() => {
         timeLeft--;
         timerElement.innerText = `Time left: ${timeLeft} seconds`;
-        if (timeLeft === 0) {
+        if (timeLeft <= 0) {
             clearInterval(intervalId);
+            timeLeft = 0; 
+            timerElement.innerText = `Time left: ${timeLeft} seconds`;
             showScore();
         }
     }, 1000);
