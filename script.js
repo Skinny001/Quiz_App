@@ -538,88 +538,115 @@ const answerButton = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
 const timerElement = document.getElementById("timer");
 
+
 let currentQuestionIndex = 0;
 let score = 0;
 let timeLeft = 200;
 let intervalId;
 
+
 let hasAttendedTest = localStorage.getItem('hasAttendedTest');
-let storedScore = localStorage.getItem('score');
 
 if (hasAttendedTest === 'true') {
-    questionElement.innerHTML = `You have already attended the test. Your score was ${storedScore}. Please refresh the page to review the questions.`;
+    questionElement.innerHTML = 'You have already attended the test. Please refresh the page to view your results.';
     nextButton.style.display = 'none';
     answerButton.style.display = 'none';
 } else {
-    // If the user has not attended the test, start the test as usual 
+    // If the user has not attended the test, start the test as usual
     startQuiz();
 }
 
-function startQuiz() {
+function startQuiz(){
     currentQuestionIndex = 0;
     score = 0;
     timeLeft = 200;
     nextButton.innerHTML = "Next";
     showQuestion();
-    startTimer();
 }
 
-function showQuestion() {
+function showQuestion(){
     let currentQuestion = questions[currentQuestionIndex];
     let questionNo = currentQuestionIndex + 1;
     questionElement.innerText = questionNo + ". " + currentQuestion.question;
 
+    // Clear the answerButton element
     answerButton.innerHTML = '';
+
     currentQuestion.answers.forEach((answer, index) => {
         const button = document.createElement("button");
-        button.innerText = answer.text;
+        button.innerHTML = answer.text;
         button.classList.add("btn");
-        button.addEventListener("click", () => selectAnswer(answer));
+        button.dataset.index = index;
+        if (answer.correct){
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener('click', selectAnswer);
         answerButton.appendChild(button);
     });
 }
 
-function selectAnswer(answer) {
-    if (answer.correct) {
+function selectAnswer(e){
+    const selectBtn = e.target;
+    const isCorrect = selectBtn.dataset.correct === "true";
+    if (isCorrect){
+        selectBtn.classList.add("correct");
         score++;
+    }else{
+        selectBtn.classList.add("incorrect");
     }
 
-    currentQuestionIndex++;
+    Array.from(answerButton.children).forEach(button => {
+        if (button.dataset.correct === "true"){
+            button.classList.add("correct");
+        }
+        button.disabled = true;
+    });
+    nextButton.style.display = "block";
 
-    if (currentQuestionIndex < questions.length) {
-        showQuestion();
+    if (currentQuestionIndex === 0){   
+        startTimer();
+    }
+}
+
+function showScore(){
+    resetState();
+    questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
+    nextButton.innerHTML = "Play Again";
+    nextButton.style.display = "block";
+     localStorage.setItem('hasAttendedTest', 'true');
+}
+
+function resetState(){
+    nextButton.style.display = "none";
+    answerButton.innerHTML = '';
+}
+
+function handleNextButton(){
+    if (nextButton.innerHTML === "Play Again") {
+        startQuiz();
     } else {
-        endQuiz();
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length){
+            showQuestion();
+        }else{
+            showScore();
+        }
     }
 }
 
-function endQuiz() {
-    stopTimer();
-    localStorage.setItem('hasAttendedTest', 'true');
-    localStorage.setItem('score', score);
-    questionElement.innerHTML = `Quiz completed! Your score is ${score}.`;
-    nextButton.innerHTML = "Restart";
-    nextButton.style.display = 'block';
-    nextButton.addEventListener("click", restartQuiz);
-    answerButton.style.display = 'none';
-}
-
-function restartQuiz() {
-    localStorage.removeItem('hasAttendedTest');
-    localStorage.removeItem('score');
-    location.reload();
-}
-
-function startTimer() {
+function startTimer(){
     intervalId = setInterval(() => {
         timeLeft--;
-        timerElement.innerText = `Time left: ${timeLeft}s`;
+        timerElement.innerText = `Time left: ${timeLeft} seconds`;
         if (timeLeft <= 0) {
-            endQuiz();
+            clearInterval(intervalId);
+            timeLeft = 0; 
+            timerElement.innerText = `Time left: ${timeLeft} seconds`;
+            showScore();
         }
     }, 1000);
 }
 
-function stopTimer() {
-    clearInterval(intervalId);
-}
+nextButton.addEventListener("click", handleNextButton);
+
+startQuiz();
