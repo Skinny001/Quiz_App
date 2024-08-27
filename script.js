@@ -64,7 +64,7 @@ const questions = [
         answers: [
             { text: "object", correct: true},
             { text: "null", correct: false},
-            { text: "Jundefined", correct: false},
+            { text: "undefined", correct: false},
             { text: "string", correct: false},
         ]
     },
@@ -85,7 +85,7 @@ const questions = [
             { text: "Undefined", correct: false},
             { text: "Boolean", correct: false},
             { text: "Float", correct: true},
-            { text: "JString", correct: false},
+            { text: "String", correct: false},
         ]
     },
 
@@ -113,7 +113,7 @@ const questions = [
         question: "How do you write (Hello World) in an alert box?",  
         answers: [
             { text: "msgBox(Hello World)", correct: false},
-            { text: "Jalert(Hello World)", correct: true},
+            { text: "alert(Hello World)", correct: true},
             { text: "alertBox(Hello World)", correct: false},
             { text: "showAlert(Hello World)", correct: false},
         ]
@@ -123,18 +123,18 @@ const questions = [
         question: "Which array method adds an element to the end of an array?", 
         answers: [
             { text: "push()", correct: true},
-            { text: "Jpop()", correct: false},
+            { text: "pop()", correct: false},
             { text: "shift()", correct: false},
-            { text: "Junshift()", correct: false},
+            { text: "unshift()", correct: false},
         ]
     },
 
     {
         question: "How do you remove the first element of an array?",
         answers: [
-            { text: "Jarray.pop()", correct: false},
+            { text: "array.pop()", correct: false},
             { text: "array.shift()", correct: true},
-            { text: "Jarray.slice(1)", correct: false},
+            { text: "array.slice(1)", correct: false},
             { text: "array.splice(0, 1)", correct: false},
         ]
     },
@@ -143,7 +143,7 @@ const questions = [
         question: "Which keyword is used to define a constant in JavaScript?",
         answers: [
             { text: "let", correct: false},
-            { text: "Jvar", correct: false},
+            { text: "var", correct: false},
             { text: "const", correct: true},
             { text: "final", correct: false},
         ]
@@ -242,7 +242,7 @@ const questions = [
             { text: "git commit -m 'message'", correct: true},
             { text: "git save -m 'message'", correct: false},
             { text: "git push -m 'message'", correct: false},
-            { text: "Jgit upload -m 'message'", correct: false},
+            { text: "git upload -m 'message'", correct: false},
         ]
     },
 
@@ -338,7 +338,7 @@ const questions = [
     {
         question: "Which hook is used to manage state in a functional component?",
         answers: [
-            { text: "JuseEffect", correct: false},
+            { text: "useEffect", correct: false},
             { text: "useState", correct: true},
             { text: "useContext", correct: false},
             { text: "useReducer", correct: false},
