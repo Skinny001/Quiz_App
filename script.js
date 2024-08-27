@@ -43,7 +43,7 @@ const questions = [
         question: "Which symbol is used for single-line comments in JavaScript?",
         answers: [
             { text: "//", correct: true},
-            { text: "<!-- -->", correct: false},
+            // { text: "<!-- -->", correct: false},
             { text: "##", correct: false},
             { text: "%%", correct: false},
         ]
@@ -424,12 +424,12 @@ const questions = [
 
 
     {
-        question: "Which HTML tag is used to define an internal style sheet?",
+        question: "Which CSS property is used to change the text color of an element?",
         answers: [
-            { text: "<css>", correct: false},
-            { text: "<style>", correct: true},
-            { text: "<script>", correct: false},
-            { text: "<link>", correct: false},
+            { text: "text-color'", correct: false},
+            { text: "color", correct: true},
+            { text: "font-color", correct: false},
+            { text: "background-color", correct: false},
         ]
     },
 
@@ -521,23 +521,33 @@ const questions = [
         ]
     },
 
+    {
+        question: "Which property is used to add spacing between the content and the border of an element?",
+        answers: [
+            { text: "margin", correct: false},
+            { text: "padding", correct: true},
+            { text: "border-spacing", correct: false},
+            { text: "spacing", correct: false},
+        ]
+    },
+
 ];
 
 const questionElement = document.getElementById("question");
 const answerButton = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
 const timerElement = document.getElementById("timer");
-// const startButton = document.getElementById("start-btn");
+
 
 let currentQuestionIndex = 0;
 let score = 0;
-let timeLeft = 120;
+let timeLeft = 200;
 let intervalId;
 
 function startQuiz(){
     currentQuestionIndex = 0;
     score = 0;
-    timeLeft = 120;
+    timeLeft = 200;
     nextButton.innerHTML = "Next";
     showQuestion();
     startTimer();
@@ -622,6 +632,5 @@ function startTimer(){
 }
 
 nextButton.addEventListener("click", handleNextButton);
-// startButton.addEventListener("click", startQuiz);
 
 startQuiz();
