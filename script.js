@@ -544,18 +544,6 @@ let score = 0;
 let timeLeft = 200;
 let intervalId;
 
-
-let hasAttendedTest = localStorage.getItem('hasAttendedTest');
-
-if (hasAttendedTest === 'true') {
-    questionElement.innerHTML = 'You have already attended the test. Please refresh the page to view your results.';
-    nextButton.style.display = 'none';
-    answerButton.style.display = 'none';
-} else {
-    // If the user has not attended the test, start the test as usual
-    startQuiz();
-}
-
 function startQuiz(){
     currentQuestionIndex = 0;
     score = 0;
@@ -603,7 +591,7 @@ function selectAnswer(e){
     });
     nextButton.style.display = "block";
 
-    if (currentQuestionIndex === 0){   
+     if (currentQuestionIndex === 0){   
         startTimer();
     }
 }
@@ -613,7 +601,6 @@ function showScore(){
     questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
     nextButton.innerHTML = "Play Again";
     nextButton.style.display = "block";
-     localStorage.setItem('hasAttendedTest', 'true');
 }
 
 function resetState(){
