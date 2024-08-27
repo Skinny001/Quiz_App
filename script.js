@@ -550,7 +550,6 @@ function startQuiz(){
     timeLeft = 200;
     nextButton.innerHTML = "Next";
     showQuestion();
-    startTimer();
 }
 
 function showQuestion(){
@@ -591,6 +590,10 @@ function selectAnswer(e){
         button.disabled = true;
     });
     nextButton.style.display = "block";
+
+    if (currentQuestionIndex === 0){   
+        startTimer();
+    }
 }
 
 function showScore(){
