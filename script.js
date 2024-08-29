@@ -541,13 +541,13 @@ const timerElement = document.getElementById("timer");
 
 let currentQuestionIndex = 0;
 let score = 0;
-let timeLeft = 200;
+let timeLeft = 400;
 let intervalId;
 
 function startQuiz(){
     currentQuestionIndex = 0;
     score = 0;
-    timeLeft = 200;
+    timeLeft = 400;
     nextButton.innerHTML = "Next";
     showQuestion();
 }
